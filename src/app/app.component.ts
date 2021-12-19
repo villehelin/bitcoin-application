@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BitcoinService } from './bitcoin.service';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,16 @@ export class AppComponent {
   title = 'bitcoin-application';
   startUnix: number;
   endUnix: number;
+
+  constructor(private bitcoinService: BitcoinService) {}
+
+  ngOnInit() {
+
+    this.bitcoinService.getData()
+      .subscribe((data: any[]) => {
+        console.log(data);
+      });
+  }
 
   searchButton(startdate, enddate){
     console.log("startdate is", startdate);
