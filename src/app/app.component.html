@@ -3,3 +3,7 @@
 <input id="input" type="text" #startDate placeholder="YYYY-MM-DD">
 <input id="input" type="text" #endDate placeholder="YYYY-MM-DD">
 <button id="input" (click)="searchButton(startDate.value, endDate.value)">Search</button>
+
+<div>{{bitcoin.prices.length}}</div>
+<div>{{bearish}}</div>
+<div>{{bitcoin.prices[0][1]}}</div>

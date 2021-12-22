@@ -10,6 +10,9 @@ export class AppComponent {
   title = 'bitcoin-application';
   startUnix: number;
   endUnix: number;
+  bitcoin: any[];
+  counter: number;
+  bearish: number;
 
   constructor(private bitcoinService: BitcoinService) {}
 
@@ -18,6 +21,7 @@ export class AppComponent {
     this.bitcoinService.getData()
       .subscribe((data: any[]) => {
         console.log(data);
+        this.bitcoin = data;
       });
   }
 
@@ -26,6 +30,26 @@ export class AppComponent {
     console.log("enddate is", enddate);
 
     this.dateToUnixTime(startdate, enddate)
+
+    this.counter = 0;
+    this.bearish = 0;
+
+    // How many days is the longest bearish (downward) trend within a given date range?
+    for (let i = 0; i < this.bitcoin.prices.length; i++) {
+      if (this.bitcoin.prices[i+1][1] > this.bitcoin.prices[i][1]) {
+        if (this.bearish < this.counter) {
+          this.bearish = this.counter;
+          this.counter = 0;
+        }
+      }
+      else if (this.bitcoin.prices[i+1][1] <= this.bitcoin.prices[i][1]) {
+        this.counter++;
+      }
+    }
+
+    
+
+   
   }
 
   dateToUnixTime(startdate, enddate) {
@@ -34,4 +58,6 @@ export class AppComponent {
     console.log(this.startUnix)
     console.log(this.endUnix)
   }
+
+  
 }
