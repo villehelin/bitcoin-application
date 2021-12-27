@@ -1,30 +1,15 @@
 <h1>Bitcoin Application</h1>
 <div>Example input for start date 2020-01-01 and for end date 2020-12-31 </div>
-<input id="input" type="text" #startDate placeholder="YYYY-MM-DD">
-<input id="input" type="text" #endDate placeholder="YYYY-MM-DD">
+Start date:<input id="input" type="text" #startDate placeholder="YYYY-MM-DD">
+End date:<input id="input" type="text" #endDate placeholder="YYYY-MM-DD">
 <button id="input" (click)="searchButton(startDate.value, endDate.value)">Search</button>
 
 <div *ngIf="bitcoinLoaded | async">
 
-    <div>{{bitcoin.prices.length}}</div>
-    <div>{{bearish}}</div>
-    <div>{{maxBearish}}</div>
-    <div>{{bitcoin.prices[0][1]}}</div>
-
-
-    <div>rivi2</div>
-    <div>{{bitcoin.total_volumes.length}}</div>
-    <div>{{counter}}</div>
-    <div>hv{{highestTradingDate}}</div>
-    <div>{{highestVolume}}</div>
-
-    <div>highest trading day within given range was {{highestTradingDateString}} and the volume for that day was {{bitcoin.total_volumes[highestTradingDate][1]}}€</div>
-
-    <div>c kohta</div>
-    <div *ngIf="onlyDownward; else elseBlock">dont buy or sell </div>
+    <div>Bitcoin was decreasing in price for {{maxBearish}} days in a row in the given range.</div>
+    <div>The date with the highest trading volume was {{highestTradingDateString}} and the volume for that day is {{bitcoin.total_volumes[highestTradingDate][1] | number:'1.0-0'}}€ in the given range.</div>
+    <div *ngIf="onlyDownward; else elseBlock">You should not buy or sell in the given date range.</div>
     <ng-template #elseBlock>
-        <div>date to buy {{dateToBuy}}</div>
-        <div>date to sell {{dateToSell}}</div>
+        <div>Best day to buy bitcoin in the given range was {{dateToBuy}} and best day to sell bought bitcoins is {{dateToSell}}.</div>
     </ng-template>
-
 </div>
